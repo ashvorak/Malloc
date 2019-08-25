@@ -1,15 +1,34 @@
 #ifndef MYSTDLIB_H
 #define MYSTDLIB_H
 
-#include <unistd.h> 
+#include <unistd.h>
+#include <sys/mman.h>
 
-typedef struct s_block
+#include "libft/libft.h"
+
+typedef enum 
 {
-	t_block *next;
-}			   t_block;	
+	TINY,
+	SMALL,
+	LARGE
+} 	e_zoneType;
+
+typedef struct	s_block
+{
+	t_block		*next;
+}				t_block;
+
+typedef struct	s_zone
+{
+	e_zoneType	type;
+	t_block		*head_block;
+	t_zone		*next_zone;
+}				t_zone;	
 
 void free();
 void *malloc(size_t size);
 void *realloc(void *ptr, size_t size);
+
+void show_alloc_mem();
 
 #endif
